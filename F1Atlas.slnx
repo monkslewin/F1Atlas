@@ -1,2 +1,5 @@
 <Solution>
+  <Project Path="F1Atlas.API/F1Atlas.API.csproj" />
+  <Project Path="F1Atlas.Core/F1Atlas.Core.csproj" />
+  <Project Path="F1Atlas.Web/F1Atlas.Web.csproj" />
 </Solution>
