@@ -10812,5 +10812,6 @@ function Ts(e) {
 function Es() {
 	requestAnimationFrame(Es), ws.rotation.y += .002, Cs.render(xs, Ss);
 }
+window.globe = { initGlobe: Ts };
 //#endregion
 export { Ts as initGlobe };

@@ -1,7 +1,24 @@
 ﻿@page "/"
+@rendermode InteractiveServer
 
-<PageTitle>Home</PageTitle>
+@inject IJSRuntime JS
 
-<h1>Hello, world!</h1>
+<PageTitle>F1Atlas</PageTitle>
 
-Welcome to your new app.
+<div class="globe-container" @ref="globeContainer">
+</div>
+
+@code {
+    private ElementReference globeContainer;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await JS.InvokeVoidAsync(
+                "globe.initGlobe",
+                globeContainer
+            );
+        }
+    }
+}

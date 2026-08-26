@@ -85,3 +85,8 @@ function animate() {
         camera
     );
 }
+
+window.globe = {
+    initGlobe
+};
+
