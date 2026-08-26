@@ -7,7 +7,6 @@ let renderer;
 let globe;
 let controls;
 
-
 export function initGlobe(container) {
 
     // Scene
@@ -37,11 +36,11 @@ export function initGlobe(container) {
 
     container.appendChild(renderer.domElement);
 
-    // controls
-     controls = new OrbitControls(
+    // Controls
+    controls = new OrbitControls(
         camera,
         renderer.domElement
-    )
+    );
 
     // Globe
     const geometry = new THREE.SphereGeometry(
@@ -49,50 +48,70 @@ export function initGlobe(container) {
         64,
         64
     );
+
     const textureLoader = new THREE.TextureLoader();
 
     const earthTexture = textureLoader.load(
         "/textures/earth.jpg"
     );
 
-    const material = new THREE.MeshStandardMaterial({
+    const material = new THREE.MeshBasicMaterial({
         map: earthTexture
     });
 
-  
     globe = new THREE.Mesh(
         geometry,
         material
     );
 
+    // Test Albert Park coordinates
+    const albertParkPoint = latLonToVector3(
+        -37.8497,
+        144.9683
+    );
+
+    console.log(albertParkPoint);
+
     scene.add(globe);
-
-    // Lighting
-    const ambientLight = new THREE.AmbientLight(
-        0xffffff,
-        1
-    );
-
-    scene.add(ambientLight);
-
-    const directionalLight = new THREE.DirectionalLight(
-        0xffffff,
-        2
-    );
-
-    directionalLight.position.set(5, 3, 5);
-
-    scene.add(directionalLight);
 
     // Start rendering
     animate();
 }
 
+function latLonToVector3(latitude, longitude) {
+
+    const radius = 1;
+
+    const latitudeRad =
+        latitude * Math.PI / 180;
+
+    const longitudeRad =
+        longitude * Math.PI / 180;
+
+    const x =
+        radius *
+        Math.cos(latitudeRad) *
+        Math.cos(longitudeRad);
+
+    const y =
+        radius *
+        Math.sin(latitudeRad);
+
+    const z =
+        radius *
+        Math.cos(latitudeRad) *
+        Math.sin(longitudeRad);
+
+    return new THREE.Vector3(
+        x,
+        y,
+        z
+    );
+}
+
 function animate() {
 
     requestAnimationFrame(animate);
-
-   
 
     renderer.render(
         scene,
@@ -103,4 +122,3 @@ function animate() {
 window.globe = {
     initGlobe
 };
-
