@@ -87,10 +87,10 @@
 /Users/finnmonks-lewin/Desktop/Projects/F1Atlas/F1Atlas.Web/bin/Debug/net10.0/package-lock 2.json
 /Users/finnmonks-lewin/Desktop/Projects/F1Atlas/F1Atlas.Web/bin/Debug/net10.0/package-lock.json
 /Users/finnmonks-lewin/Desktop/Projects/F1Atlas/F1Atlas.Web/bin/Debug/net10.0/package.json
-/Users/finnmonks-lewin/Desktop/Projects/F1Atlas/F1Atlas.Web/obj/Debug/net10.0/compressed/ca7vpuqt34-{0}-baxr336rrw-baxr336rrw.gz
 /Users/finnmonks-lewin/Desktop/Projects/F1Atlas/F1Atlas.Web/obj/Debug/net10.0/scopedcss/Components/Pages/Error.razor.rz.scp.css
 /Users/finnmonks-lewin/Desktop/Projects/F1Atlas/F1Atlas.Web/obj/Debug/net10.0/scopedcss/Components/Pages/Home.razor.rz.scp.css
 /Users/finnmonks-lewin/Desktop/Projects/F1Atlas/F1Atlas.Web/obj/Debug/net10.0/scopedcss/Components/Pages/NotFound.razor.rz.scp.css
 /Users/finnmonks-lewin/Desktop/Projects/F1Atlas/F1Atlas.Web/obj/Debug/net10.0/compressed/z9aq519b7a-{0}-cy4mtdh7gh-cy4mtdh7gh.gz
 /Users/finnmonks-lewin/Desktop/Projects/F1Atlas/F1Atlas.Web/obj/Debug/net10.0/compressed/qcjo5omwb6-{0}-zhhwyw0dwb-zhhwyw0dwb.gz
 /Users/finnmonks-lewin/Desktop/Projects/F1Atlas/F1Atlas.Web/obj/Debug/net10.0/compressed/ueu4kc8dyf-{0}-zhhwyw0dwb-zhhwyw0dwb.gz
+/Users/finnmonks-lewin/Desktop/Projects/F1Atlas/F1Atlas.Web/obj/Debug/net10.0/compressed/ca7vpuqt34-{0}-7i4dqjx7uv-7i4dqjx7uv.gz

@@ -1,9 +1,12 @@
 import * as THREE from "three";
+import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 
 let scene;
 let camera;
 let renderer;
 let globe;
+let controls;
+
 
 export function initGlobe(container) {
 
@@ -34,17 +37,29 @@ export function initGlobe(container) {
 
     container.appendChild(renderer.domElement);
 
+    // controls
+     controls = new OrbitControls(
+        camera,
+        renderer.domElement
+    )
+
     // Globe
     const geometry = new THREE.SphereGeometry(
         1,
         64,
         64
     );
+    const textureLoader = new THREE.TextureLoader();
+
+    const earthTexture = textureLoader.load(
+        "/textures/earth.jpg"
+    );
 
     const material = new THREE.MeshStandardMaterial({
-        color: 0x2266aa
+        map: earthTexture
     });
 
+  
     globe = new THREE.Mesh(
         geometry,
         material
@@ -77,8 +92,7 @@ function animate() {
 
     requestAnimationFrame(animate);
 
-    // Rotate globe
-    globe.rotation.y += 0.002;
+   
 
     renderer.render(
         scene,
