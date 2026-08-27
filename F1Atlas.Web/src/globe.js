@@ -42,7 +42,48 @@ export function initGlobe(container) {
         renderer.domElement
     );
 
+    // --------------------------------------------------
+    // Stars
+    // --------------------------------------------------
+
+    const starGeometry = new THREE.BufferGeometry();
+
+    const starCount = 5000;
+
+    const positions = new Float32Array(
+        starCount * 3
+    );
+
+    for (let i = 0; i < starCount * 3; i++) {
+
+        positions[i] =
+            (Math.random() - 0.5) * 100;
+    }
+
+    starGeometry.setAttribute(
+        "position",
+        new THREE.BufferAttribute(
+            positions,
+            3
+        )
+    );
+
+    const starMaterial = new THREE.PointsMaterial({
+        color: 0xffffff,
+        size: 0.05
+    });
+
+    const stars = new THREE.Points(
+        starGeometry,
+        starMaterial
+    );
+
+    scene.add(stars);
+
+    // --------------------------------------------------
     // Globe
+    // --------------------------------------------------
+
     const geometry = new THREE.SphereGeometry(
         1,
         64,
@@ -64,38 +105,24 @@ export function initGlobe(container) {
         material
     );
 
+    // --------------------------------------------------
     // Test Albert Park coordinates
+    // --------------------------------------------------
+
     const albertParkPoint = latLonToVector3(
         -37.8497,
         144.9683
     );
 
-    const testCoordinates = [
-        [0, 0],
-        [0, 90],
-        [0, 180],
-        [0, -90]
-    ];
-
-    testCoordinates.forEach(([lat, lon]) => {
-
-        const point = latLonToVector3(lat, lon);
-
-        const marker = new THREE.Mesh(
-            new THREE.SphereGeometry(0.03, 16, 16),
-            new THREE.MeshBasicMaterial({
-                color: 0xff0000
-            })
-        );
-
-        marker.position.copy(point);
-        scene.add(marker);
-    });
+    
+    // --------------------------------------------------
+    // Marker
+    // --------------------------------------------------
 
     const markerGeometry = new THREE.SphereGeometry(
-    0.03,
-    16,
-    16
+        0.015,
+        16,
+        16
     );
 
     const markerMaterial = new THREE.MeshBasicMaterial({
@@ -107,16 +134,23 @@ export function initGlobe(container) {
         markerMaterial
     );
 
-    marker.position.copy(albertParkPoint);
+    marker.position.copy(
+        albertParkPoint
+    );
+
     scene.add(marker);
 
+    // Add globe to scene
     scene.add(globe);
 
     // Start rendering
     animate();
 }
 
-function latLonToVector3(latitude, longitude) {
+function latLonToVector3(
+    latitude,
+    longitude
+) {
 
     const radius = 1;
 
@@ -136,7 +170,7 @@ function latLonToVector3(latitude, longitude) {
         Math.sin(latitudeRad);
 
     const z =
-        radius *
+        -radius *
         Math.cos(latitudeRad) *
         Math.sin(longitudeRad);
 
