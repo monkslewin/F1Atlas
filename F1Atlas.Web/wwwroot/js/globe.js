@@ -11462,7 +11462,9 @@ var al, ol, sl, cl;
 function ll(e) {
 	al = new An(), ol = new Qi(45, e.clientWidth / e.clientHeight, .1, 1e3), ol.position.z = 3, sl = new Ic({ antialias: !0 }), sl.setSize(e.clientWidth, e.clientHeight), sl.setPixelRatio(window.devicePixelRatio), e.appendChild(sl.domElement), new Kc(ol, sl.domElement), cl = new qr(new di(1, 64, 64), new Fr({ map: new Wi().load("/textures/earth.jpg") }));
 	let t = ul(-37.8497, 144.9683);
-	console.log(t), al.add(cl), dl();
+	console.log("0, 0:", ul(0, 0)), console.log("0, 90:", ul(0, 90)), console.log("0, 180:", ul(0, 180)), console.log("0, -90:", ul(0, -90)), console.log("90, 0:", ul(90, 0)), console.log("-90, 0:", ul(-90, 0));
+	let n = new qr(new di(.03, 16, 16), new Fr({ color: 16711680 }));
+	n.position.copy(t), al.add(n), al.add(cl), dl();
 }
 function ul(e, t) {
 	let n = e * Math.PI / 180, r = t * Math.PI / 180;

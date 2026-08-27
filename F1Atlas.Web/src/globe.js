@@ -70,7 +70,45 @@ export function initGlobe(container) {
         144.9683
     );
 
-    console.log(albertParkPoint);
+    const testCoordinates = [
+        [0, 0],
+        [0, 90],
+        [0, 180],
+        [0, -90]
+    ];
+
+    testCoordinates.forEach(([lat, lon]) => {
+
+        const point = latLonToVector3(lat, lon);
+
+        const marker = new THREE.Mesh(
+            new THREE.SphereGeometry(0.03, 16, 16),
+            new THREE.MeshBasicMaterial({
+                color: 0xff0000
+            })
+        );
+
+        marker.position.copy(point);
+        scene.add(marker);
+    });
+
+    const markerGeometry = new THREE.SphereGeometry(
+    0.03,
+    16,
+    16
+    );
+
+    const markerMaterial = new THREE.MeshBasicMaterial({
+        color: 0xff0000
+    });
+
+    const marker = new THREE.Mesh(
+        markerGeometry,
+        markerMaterial
+    );
+
+    marker.position.copy(albertParkPoint);
+    scene.add(marker);
 
     scene.add(globe);
 
