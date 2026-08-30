@@ -1,4 +1,5 @@
 using F1Atlas.API.Models;
+using F1Atlas.Core.Models;
 
 namespace F1Atlas.API.Services;
 
@@ -11,16 +12,35 @@ public class F1Service
         _httpClient = httpClient;
     }
 
-    public async Task<JolpicaResponse> GetCircuits()
+    public async Task<List<Circuit>> GetCircuits()
     {
-        _httpClient.DefaultRequestHeaders.UserAgent.ParseAdd("F1Atlas/1.0.0");
+        _httpClient.DefaultRequestHeaders.UserAgent.ParseAdd(
+            "F1Atlas/1.0.0"
+        );
 
         var response = await _httpClient.GetFromJsonAsync<JolpicaResponse>(
             "https://api.jolpi.ca/ergast/f1/2026/circuits"
+        ) ?? throw new Exception(
+            "Error getting data from API. Please try again later."
+        );
 
-        ) ?? throw new Exception("Error getting data from API. Please try again later.");
-        
-        Console.WriteLine(response);
-        return response;
+        var circuits = new List<Circuit>();
+
+        foreach (var jolpicaCircuit in response.MRData.CircuitTable.Circuits)
+        {
+            var circuit = new Circuit
+            {
+                Id = jolpicaCircuit.CircuitId,
+                Name = jolpicaCircuit.CircuitName,
+                Latitude = double.Parse(jolpicaCircuit.Location.Lat),
+                Longitude = double.Parse(jolpicaCircuit.Location.Long),
+                Locality = jolpicaCircuit.Location.Locality,
+                Country = jolpicaCircuit.Location.Country
+            };
+
+            circuits.Add(circuit);
+        }
+
+        return circuits;
     }
 }

@@ -11,6 +11,7 @@ public class CircuitsController : ControllerBase
     {
         _F1Service = F1Service;
     }
+    
     // expose service so frontend can access circuit data
     [HttpGet]
     public async Task<IActionResult> GetCircuits()
