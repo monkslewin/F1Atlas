@@ -7,7 +7,7 @@ let renderer;
 let globe;
 let controls;
 
-export function initGlobe(container) {
+export function initGlobe(container, circuits) {
 
     // Scene
     scene = new THREE.Scene();
@@ -106,39 +106,35 @@ export function initGlobe(container) {
     );
 
     // --------------------------------------------------
-    // Test Albert Park coordinates
+    // Markers
     // --------------------------------------------------
 
-    const albertParkPoint = latLonToVector3(
-        -37.8497,
-        144.9683
-    );
+    for (const circuit of circuits) {
 
-    
-    // --------------------------------------------------
-    // Marker
-    // --------------------------------------------------
+        const point = latLonToVector3(
+            circuit.Latitude,
+            circuit.Longitude
+        );
 
-    const markerGeometry = new THREE.SphereGeometry(
-        0.015,
-        16,
-        16
-    );
+        const markerGeometry = new THREE.SphereGeometry(
+            0.015,
+            16,
+            16
+        );
 
-    const markerMaterial = new THREE.MeshBasicMaterial({
-        color: 0xff0000
-    });
+        const markerMaterial = new THREE.MeshBasicMaterial({
+            color: 0xff0000
+        });
 
-    const marker = new THREE.Mesh(
-        markerGeometry,
-        markerMaterial
-    );
+        const marker = new THREE.Mesh(
+            markerGeometry,
+            markerMaterial
+        );
 
-    marker.position.copy(
-        albertParkPoint
-    );
+        marker.position.copy(point);
 
-    scene.add(marker);
+        scene.add(marker);
+    }
 
     // Add globe to scene
     scene.add(globe);

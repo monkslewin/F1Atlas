@@ -11522,18 +11522,21 @@ function dl(e) {
 //#endregion
 //#region src/globe.js
 var fl, pl, ml, hl;
-function gl(e) {
+function gl(e, t) {
 	fl = new An(), pl = new aa(45, e.clientWidth / e.clientHeight, .1, 1e3), pl.position.z = 3, ml = new Uc({ antialias: !0 }), ml.setSize(e.clientWidth, e.clientHeight), ml.setPixelRatio(window.devicePixelRatio), e.appendChild(ml.domElement), new $c(pl, ml.domElement);
-	let t = new wr(), n = 15e3, r = new Float32Array(n * 3);
-	for (let e = 0; e < n * 3; e++) r[e] = (Math.random() - .5) * 100;
-	t.setAttribute("position", new lr(r, 3));
-	let i = new ui(t, new ai({
+	let n = new wr(), r = 15e3, i = new Float32Array(r * 3);
+	for (let e = 0; e < r * 3; e++) i[e] = (Math.random() - .5) * 100;
+	n.setAttribute("position", new lr(i, 3));
+	let a = new ui(n, new ai({
 		color: 16777215,
 		size: .05
 	}));
-	fl.add(i), hl = new qr(new vi(1, 64, 64), new Fr({ map: new Zi().load("/textures/earth.jpg") }));
-	let a = _l(-37.8497, 144.9683), o = new qr(new vi(.015, 16, 16), new Fr({ color: 16711680 }));
-	o.position.copy(a), fl.add(o), fl.add(hl), vl();
+	fl.add(a), hl = new qr(new vi(1, 64, 64), new Fr({ map: new Zi().load("/textures/earth.jpg") }));
+	for (let e of t) {
+		let t = _l(e.Latitude, e.Longitude), n = new qr(new vi(.015, 16, 16), new Fr({ color: 16711680 }));
+		n.position.copy(t), fl.add(n);
+	}
+	fl.add(hl), vl();
 }
 function _l(e, t) {
 	let n = e * Math.PI / 180, r = t * Math.PI / 180;

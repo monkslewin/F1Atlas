@@ -1,7 +1,9 @@
 ﻿@page "/"
 @rendermode InteractiveServer
-
+@using F1Atlas.Web.Services
+@using F1Atlas.Core.Models
 @inject IJSRuntime JS
+@inject CircuitService CircuitService
 
 <PageTitle>F1Atlas</PageTitle>
 
@@ -10,6 +12,7 @@
 
 @code {
     private ElementReference globeContainer;
+    private List<Circuit> circuits = new();
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
@@ -17,8 +20,14 @@
         {
             await JS.InvokeVoidAsync(
                 "globe.initGlobe",
-                globeContainer
+                globeContainer,
+                circuits
             );
         }
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        circuits = await CircuitService.GetCircuits();
     }
 }
