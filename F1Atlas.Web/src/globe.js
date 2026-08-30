@@ -48,7 +48,7 @@ export function initGlobe(container) {
 
     const starGeometry = new THREE.BufferGeometry();
 
-    const starCount = 5000;
+    const starCount = 15000; // arbitrary star count
 
     const positions = new Float32Array(
         starCount * 3

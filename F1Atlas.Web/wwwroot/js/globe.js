@@ -11524,7 +11524,7 @@ function dl(e) {
 var fl, pl, ml, hl;
 function gl(e) {
 	fl = new An(), pl = new aa(45, e.clientWidth / e.clientHeight, .1, 1e3), pl.position.z = 3, ml = new Uc({ antialias: !0 }), ml.setSize(e.clientWidth, e.clientHeight), ml.setPixelRatio(window.devicePixelRatio), e.appendChild(ml.domElement), new $c(pl, ml.domElement);
-	let t = new wr(), n = 5e3, r = new Float32Array(n * 3);
+	let t = new wr(), n = 15e3, r = new Float32Array(n * 3);
 	for (let e = 0; e < n * 3; e++) r[e] = (Math.random() - .5) * 100;
 	t.setAttribute("position", new lr(r, 3));
 	let i = new ui(t, new ai({
