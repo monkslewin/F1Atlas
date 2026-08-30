@@ -16,10 +16,11 @@ public class F1Service
         _httpClient.DefaultRequestHeaders.UserAgent.ParseAdd("F1Atlas/1.0.0");
 
         var response = await _httpClient.GetFromJsonAsync<JolpicaResponse>(
-            "https://api.jolpi.ca/ergast/f1/circuits"
+            "https://api.jolpi.ca/ergast/f1/2026/circuits"
 
         ) ?? throw new Exception("Error getting data from API. Please try again later.");
         
+        Console.WriteLine(response);
         return response;
     }
 }
