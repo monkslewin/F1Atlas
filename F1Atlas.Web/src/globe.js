@@ -109,11 +109,12 @@ export function initGlobe(container, circuits) {
     // Markers
     // --------------------------------------------------
 
+    console.log("Circuits from API:", circuits);
     for (const circuit of circuits) {
-
+        
         const point = latLonToVector3(
-            circuit.Latitude,
-            circuit.Longitude
+            circuit.latitude,
+            circuit.longitude
         );
 
         const markerGeometry = new THREE.SphereGeometry(

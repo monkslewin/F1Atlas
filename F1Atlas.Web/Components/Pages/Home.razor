@@ -18,16 +18,13 @@
     {
         if (firstRender)
         {
+            circuits = await CircuitService.GetCircuits();
+
             await JS.InvokeVoidAsync(
                 "globe.initGlobe",
                 globeContainer,
                 circuits
             );
         }
-    }
-
-    protected override async Task OnInitializedAsync()
-    {
-        circuits = await CircuitService.GetCircuits();
     }
 }

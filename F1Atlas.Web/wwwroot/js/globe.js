@@ -11531,9 +11531,9 @@ function gl(e, t) {
 		color: 16777215,
 		size: .05
 	}));
-	fl.add(a), hl = new qr(new vi(1, 64, 64), new Fr({ map: new Zi().load("/textures/earth.jpg") }));
+	fl.add(a), hl = new qr(new vi(1, 64, 64), new Fr({ map: new Zi().load("/textures/earth.jpg") })), console.log("Circuits from API:", t);
 	for (let e of t) {
-		let t = _l(e.Latitude, e.Longitude), n = new qr(new vi(.015, 16, 16), new Fr({ color: 16711680 }));
+		let t = _l(e.latitude, e.longitude), n = new qr(new vi(.015, 16, 16), new Fr({ color: 16711680 }));
 		n.position.copy(t), fl.add(n);
 	}
 	fl.add(hl), vl();
