@@ -1,23 +1,70 @@
 .circuit-popup {
     position: fixed;
+
+    left: 30px;
     top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+
+    transform: translateY(-50%);
+
+    width: 450px;
+    min-height: 250px;
 
     background: white;
-    padding: 2rem;
+    padding: 30px;
+
     border-radius: 12px;
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
 
     z-index: 1000;
 }
 
+.header {
+    margin-bottom: 25px;
+}
+
+.circuit-name {
+    font-size: 24px;
+    margin: 0;
+}
+
+.stats {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.stat-section {
+    padding: 15px;
+    border-radius: 8px;
+    background: #f5f5f5;
+}
+
+.stat-section h3 {
+    margin: 0 0 8px 0;
+    font-size: 16px;
+}
+
+.stat-driver {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.stat-value {
+    margin: 3px 0 0 0;
+    font-size: 14px;
+    color: #666;
+}
+
 .close-button {
     position: absolute;
-    top: 8px;
-    right: 12px;
+
+    top: 10px;
+    right: 15px;
+
     border: none;
     background: none;
-    font-size: 24px;
+
+    font-size: 28px;
     cursor: pointer;
 }

@@ -1,11 +1,41 @@
 @if (Visible)
 {
     <div class="circuit-popup">
-        <button class="close-button" @onclick="Close">×</button>
 
-        <h2>@CircuitName</h2>
+        <div class="header">
+            <button class="close-button" @onclick="Close">×</button>
 
-        <p>Welcome to the @CircuitName circuit.</p>
+            <h2 class="circuit-name">@CircuitName</h2>
+        </div>
+
+        <div class="stats">
+
+            <div class="stat-section">
+                <h3>Most Wins</h3>
+                <p class="stat-driver">Lewis Hamilton</p>
+                <p class="stat-value">4 wins</p>
+            </div>
+
+            <div class="stat-section">
+                <h3>Most Podiums</h3>
+                <p class="stat-driver">Lewis Hamilton</p>
+                <p class="stat-value">10 podiums</p>
+            </div>
+
+            <div class="stat-section">
+                <h3>Most Pole Positions</h3>
+                <p class="stat-driver">Lewis Hamilton</p>
+                <p class="stat-value">8 poles</p>
+            </div>
+
+            <div class="stat-section">
+                <h3>Most Starts</h3>
+                <p class="stat-driver">Fernando Alonso</p>
+                <p class="stat-value">19 starts</p>
+            </div>
+
+        </div>
+
     </div>
 }
 
