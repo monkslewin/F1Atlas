@@ -143,7 +143,8 @@ export function initGlobe(container, circuits, dotNetRef) {
         );
 
         marker.userData = {
-            circuitName: circuit.name
+            circuitName: circuit.name,
+            circuitId: circuit.id
         }
 
         markers.push(marker);
@@ -215,7 +216,8 @@ function onMouseClick(event) {
 
     dotNetReference.invokeMethodAsync(
             "CircuitClicked",
-            marker.userData.circuitName
+            marker.userData.circuitName,
+            marker.userData.circuitId
         );
 
     console.log(marker.userData.circuitName);

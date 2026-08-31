@@ -1,3 +1,4 @@
+@using F1Atlas.Core.Models
 @if (Visible)
 {
     <div class="circuit-popup">
@@ -11,8 +12,8 @@
         <div class="stats">
 
             <div class="stat-section">
-                <h3>Most Wins</h3>
-                <p class="stat-driver">Lewis Hamilton</p>
+                <h3>Race Winner</h3>
+                <p class="stat-driver">@CircuitStatistics?.Winner</p>
                 <p class="stat-value">4 wins</p>
             </div>
 
@@ -44,10 +45,15 @@
     public string? CircuitName { get; set; }
 
     [Parameter]
+    public CircuitStatistics? CircuitStatistics { get; set;}
+
+    [Parameter]
     public bool Visible { get; set; }
 
     [Parameter]
     public EventCallback OnClose { get; set; }
+
+
 
     private async Task Close()
     {

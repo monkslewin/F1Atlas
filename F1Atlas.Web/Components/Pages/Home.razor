@@ -13,6 +13,7 @@
 
 <CircuitPopup
     CircuitName="@selectedCircuit"
+    CircuitStatistics="@selectedStatistics"
     Visible="@showPopup"
     OnClose="@ClosePopup"
 />
@@ -26,6 +27,8 @@
     private bool showPopup = false;
 
     private DotNetObjectReference<Home>? dotNetReference;
+
+    private CircuitStatistics? selectedStatistics;
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
@@ -45,10 +48,12 @@
     }
 
     [JSInvokable]
-    public void CircuitClicked(string circuitName)
+    public async Task CircuitClicked(string circuitName, string circuitId)
     {
         selectedCircuit = circuitName;
         showPopup = true;
+        selectedStatistics =
+        await CircuitService.GetCircuitStatistics(circuitId);
 
         StateHasChanged();
     }

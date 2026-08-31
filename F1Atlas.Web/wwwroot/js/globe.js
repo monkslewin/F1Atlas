@@ -11571,7 +11571,10 @@ function wl(e, t, n) {
 	gl.add(o), yl = new qr(new vi(1, 64, 64), new Fr({ map: new Zi().load("/textures/earth.jpg") }));
 	for (let e of t) {
 		let t = Tl(e.latitude, e.longitude), n = new qr(new vi(.015, 16, 16), new Fr({ color: 16711680 }));
-		n.userData = { circuitName: e.name }, Sl.push(n), n.position.copy(t), gl.add(n);
+		n.userData = {
+			circuitName: e.name,
+			circuitId: e.id
+		}, Sl.push(n), n.position.copy(t), gl.add(n);
 	}
 	gl.add(yl), Dl();
 }
@@ -11585,7 +11588,7 @@ function El(e) {
 	let n = bl.intersectObjects(Sl);
 	if (n.length === 0) return;
 	let r = n[0].object;
-	Cl.invokeMethodAsync("CircuitClicked", r.userData.circuitName), console.log(r.userData.circuitName);
+	Cl.invokeMethodAsync("CircuitClicked", r.userData.circuitName, r.userData.circuitId), console.log(r.userData.circuitName);
 }
 function Dl() {
 	requestAnimationFrame(Dl), vl.render(gl, _l);
