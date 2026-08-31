@@ -18,4 +18,13 @@ public class CircuitService
 
         return circuits ?? new List<Circuit>();
     }
+
+    public async Task<CircuitStatistics?> GetCircuitStatistics(string circuitId)
+    {
+        var statistics = await _httpClient.GetFromJsonAsync<CircuitStatistics>(
+            $"api/circuits/{circuitId}/statistics"
+        );
+
+        return statistics;
+    }
 }
