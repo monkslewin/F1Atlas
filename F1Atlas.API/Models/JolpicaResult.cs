@@ -4,4 +4,5 @@ public class JolpicaResult
 {
     public string Position { get; set; } = "";
     public JolpicaDriver Driver { get; set; } = new();
+    public JolpicaFastestLap? FastestLap { get; set; }
 }

@@ -43,4 +43,47 @@ public class F1Service
 
         return circuits;
     }
+
+    public async Task<CircuitStatistics?> GetCircuitStatistics(string circuitId)
+    {
+        _httpClient.DefaultRequestHeaders.UserAgent.ParseAdd(
+            "F1Atlas/1.0.0"
+        );
+
+        var response = await _httpClient.GetFromJsonAsync<JolpicaResponse>(
+            $"https://api.jolpi.ca/ergast/f1/2026/circuits/{circuitId}/results/"
+        ) ?? throw new Exception(
+            "Error getting data from API. Please try again later."
+        );
+
+        var races = response.MRData.RaceTable.Races;
+
+        if (races.Count == 0)
+        {
+            return null;
+        }
+
+        var race = races.First();
+
+        var winner = race.Results
+            .FirstOrDefault(result => result.Position == "1");
+
+        var fastestLap = race.Results
+            .Where(result => result.FastestLap != null)
+            .OrderBy(result => result.FastestLap!.Time.Time)
+            .FirstOrDefault();
+
+        return new CircuitStatistics
+        {
+            CircuitName = race.Circuit.CircuitName,
+
+            Winner = winner == null
+                ? "N/A"
+                : $"{winner.Driver.GivenName} {winner.Driver.FamilyName}",
+
+            FastestLap = fastestLap == null
+                ? "N/A"
+                : $"{fastestLap.Driver.GivenName} {fastestLap.Driver.FamilyName}"
+        };
+    }
 }
