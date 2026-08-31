@@ -1,18 +1,31 @@
 ﻿@page "/"
 @rendermode InteractiveServer
+
 @using F1Atlas.Web.Services
 @using F1Atlas.Core.Models
+
 @inject IJSRuntime JS
 @inject CircuitService CircuitService
 
 <PageTitle>F1Atlas</PageTitle>
 
-<div class="globe-container" @ref="globeContainer">
-</div>
+<div class="globe-container" @ref="globeContainer"></div>
+
+<CircuitPopup
+    CircuitName="@selectedCircuit"
+    Visible="@showPopup"
+    OnClose="@ClosePopup"
+/>
 
 @code {
     private ElementReference globeContainer;
+
     private List<Circuit> circuits = new();
+
+    private string? selectedCircuit;
+    private bool showPopup = false;
+
+    private DotNetObjectReference<Home>? dotNetReference;
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
@@ -20,11 +33,33 @@
         {
             circuits = await CircuitService.GetCircuits();
 
+            dotNetReference = DotNetObjectReference.Create(this);
+
             await JS.InvokeVoidAsync(
                 "globe.initGlobe",
                 globeContainer,
-                circuits
+                circuits,
+                dotNetReference
             );
         }
+    }
+
+    [JSInvokable]
+    public void CircuitClicked(string circuitName)
+    {
+        selectedCircuit = circuitName;
+        showPopup = true;
+
+        StateHasChanged();
+    }
+
+    private void ClosePopup()
+    {
+        showPopup = false;
+    }
+
+    public void Dispose()
+    {
+        dotNetReference?.Dispose();
     }
 }

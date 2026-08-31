@@ -1,0 +1,26 @@
+@if (Visible)
+{
+    <div class="circuit-popup">
+        <button class="close-button" @onclick="Close">×</button>
+
+        <h2>@CircuitName</h2>
+
+        <p>Welcome to the @CircuitName circuit.</p>
+    </div>
+}
+
+@code {
+    [Parameter]
+    public string? CircuitName { get; set; }
+
+    [Parameter]
+    public bool Visible { get; set; }
+
+    [Parameter]
+    public EventCallback OnClose { get; set; }
+
+    private async Task Close()
+    {
+        await OnClose.InvokeAsync();
+    }
+}

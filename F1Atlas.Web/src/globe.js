@@ -6,8 +6,14 @@ let camera;
 let renderer;
 let globe;
 let controls;
+const raycaster = new THREE.Raycaster();
+const mouse = new THREE.Vector2();
+const markers = [];
+let dotNetReference;
 
-export function initGlobe(container, circuits) {
+export function initGlobe(container, circuits, dotNetRef) {
+
+    dotNetReference = dotNetRef;
 
     // Scene
     scene = new THREE.Scene();
@@ -35,6 +41,10 @@ export function initGlobe(container, circuits) {
     renderer.setPixelRatio(window.devicePixelRatio);
 
     container.appendChild(renderer.domElement);
+    renderer.domElement.addEventListener(
+        "click",
+        onMouseClick
+    );
 
     // Controls
     controls = new OrbitControls(
@@ -109,7 +119,7 @@ export function initGlobe(container, circuits) {
     // Markers
     // --------------------------------------------------
 
-    console.log("Circuits from API:", circuits);
+    
     for (const circuit of circuits) {
         
         const point = latLonToVector3(
@@ -131,6 +141,12 @@ export function initGlobe(container, circuits) {
             markerGeometry,
             markerMaterial
         );
+
+        marker.userData = {
+            circuitName: circuit.name
+        }
+
+        markers.push(marker);
 
         marker.position.copy(point);
 
@@ -176,6 +192,34 @@ function latLonToVector3(
         y,
         z
     );
+}
+
+function onMouseClick(event) {
+    const rect = renderer.domElement.getBoundingClientRect();
+    mouse.x = (
+        (event.clientX - rect.left) / rect.width
+    ) * 2 - 1;
+
+    mouse.y = -(
+        (event.clientY - rect.top) / rect.height
+    ) * 2 + 1;
+
+    raycaster.setFromCamera(mouse, camera);
+    const intersects = raycaster.intersectObjects(markers);
+
+    if (intersects.length === 0) {
+        return;
+    };
+
+    const marker = intersects[0].object;
+
+    dotNetReference.invokeMethodAsync(
+            "CircuitClicked",
+            marker.userData.circuitName
+        );
+
+    console.log(marker.userData.circuitName);
+
 }
 
 function animate() {
