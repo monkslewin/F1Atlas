@@ -6,19 +6,32 @@ let camera;
 let renderer;
 let globe;
 let controls;
+let markerGroup;
+
 const raycaster = new THREE.Raycaster();
 const mouse = new THREE.Vector2();
-const markers = [];
+let markers = [];
+
 let dotNetReference;
 
 export function initGlobe(container, circuits, dotNetRef) {
 
     dotNetReference = dotNetRef;
 
+    // --------------------------------------------------
     // Scene
+    // --------------------------------------------------
+
     scene = new THREE.Scene();
 
+    markerGroup = new THREE.Group();
+
+    scene.add(markerGroup);
+
+    // --------------------------------------------------
     // Camera
+    // --------------------------------------------------
+
     camera = new THREE.PerspectiveCamera(
         45,
         container.clientWidth / container.clientHeight,
@@ -28,7 +41,10 @@ export function initGlobe(container, circuits, dotNetRef) {
 
     camera.position.z = 3;
 
+    // --------------------------------------------------
     // Renderer
+    // --------------------------------------------------
+
     renderer = new THREE.WebGLRenderer({
         antialias: true
     });
@@ -41,12 +57,16 @@ export function initGlobe(container, circuits, dotNetRef) {
     renderer.setPixelRatio(window.devicePixelRatio);
 
     container.appendChild(renderer.domElement);
+
     renderer.domElement.addEventListener(
         "click",
         onMouseClick
     );
 
+    // --------------------------------------------------
     // Controls
+    // --------------------------------------------------
+
     controls = new OrbitControls(
         camera,
         renderer.domElement
@@ -58,7 +78,7 @@ export function initGlobe(container, circuits, dotNetRef) {
 
     const starGeometry = new THREE.BufferGeometry();
 
-    const starCount = 15000; // arbitrary star count
+    const starCount = 15000;
 
     const positions = new Float32Array(
         starCount * 3
@@ -115,13 +135,25 @@ export function initGlobe(container, circuits, dotNetRef) {
         material
     );
 
+    scene.add(globe);
+
     // --------------------------------------------------
     // Markers
     // --------------------------------------------------
 
-    
+    createMarkers(circuits);
+
+    // --------------------------------------------------
+    // Start rendering
+    // --------------------------------------------------
+
+    animate();
+}
+
+function createMarkers(circuits) {
+
     for (const circuit of circuits) {
-        
+
         const point = latLonToVector3(
             circuit.latitude,
             circuit.longitude
@@ -145,20 +177,14 @@ export function initGlobe(container, circuits, dotNetRef) {
         marker.userData = {
             circuitName: circuit.name,
             circuitId: circuit.id
-        }
-
-        markers.push(marker);
+        };
 
         marker.position.copy(point);
 
-        scene.add(marker);
+        markers.push(marker);
+
+        markerGroup.add(marker);
     }
-
-    // Add globe to scene
-    scene.add(globe);
-
-    // Start rendering
-    animate();
 }
 
 function latLonToVector3(
@@ -196,31 +222,44 @@ function latLonToVector3(
 }
 
 function onMouseClick(event) {
-    const rect = renderer.domElement.getBoundingClientRect();
-    mouse.x = (
-        (event.clientX - rect.left) / rect.width
-    ) * 2 - 1;
 
-    mouse.y = -(
-        (event.clientY - rect.top) / rect.height
-    ) * 2 + 1;
+    const rect =
+        renderer.domElement.getBoundingClientRect();
 
-    raycaster.setFromCamera(mouse, camera);
+    mouse.x =
+        ((event.clientX - rect.left) / rect.width) * 2 - 1;
+
+    mouse.y =
+        -((event.clientY - rect.top) / rect.height) * 2 + 1;
+
+    raycaster.setFromCamera(
+        mouse,
+        camera
+    );
+
     const intersects = raycaster.intersectObjects(markers);
 
     if (intersects.length === 0) {
         return;
-    };
+    }
 
-    const marker = intersects[0].object;
+    const marker =
+        intersects[0].object;
 
     dotNetReference.invokeMethodAsync(
-            "CircuitClicked",
-            marker.userData.circuitName,
-            marker.userData.circuitId
-        );
+        "CircuitClicked",
+        marker.userData.circuitName,
+        marker.userData.circuitId
+    );
+}
 
+export function updateCircuits(circuits) {
 
+    markerGroup.clear();
+
+    markers.length = 0;
+
+    createMarkers(circuits);
 }
 
 function animate() {
@@ -234,5 +273,6 @@ function animate() {
 }
 
 window.globe = {
-    initGlobe
+    initGlobe,
+    updateCircuits
 };

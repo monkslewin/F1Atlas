@@ -75,9 +75,16 @@
         showPopup = false;
     }
 
-    private void OnYearChanged(int newYear)
+    private async Task OnYearChanged(int newYear)
     {
         selectedYear = newYear;
+        circuits = await CircuitService.GetCircuits(selectedYear);
+
+        await JS.InvokeVoidAsync(
+        "globe.updateCircuits",
+        circuits
+    );
+
     }
 
     public void Dispose()
