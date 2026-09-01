@@ -1,3 +1,5 @@
+using System.Dynamic;
+
 namespace F1Atlas.Core.Models;
 
 public class CircuitStatistics
@@ -9,5 +11,7 @@ public class CircuitStatistics
 
     public string FastestLapTime { get; set; } = "";
 
-    public string Date { get; set; } = "";
+    public string WinMargin { get; set; } = "";
+
+    public bool HasRaceHappened { get; set; }
 }

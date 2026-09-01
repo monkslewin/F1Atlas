@@ -65,10 +65,13 @@ public class F1Service
 
         var race = races.First();
 
-        var date = race.Date;
+        var date = DateTime.Parse(race.Date);
 
         var winner = race.Results
             .FirstOrDefault(result => result.Position == "1");
+
+        var secondPlace = race.Results
+            .FirstOrDefault(result => result.Position == "2");
 
         var fastestLap = race.Results
             .Where(result => result.FastestLap != null)
@@ -82,6 +85,9 @@ public class F1Service
             Winner = winner == null
                 ? "N/A"
                 : $"{winner.Driver.GivenName} {winner.Driver.FamilyName}",
+            
+
+            WinMargin = secondPlace?.Time?.Time ?? "N/A",
 
             FastestLap = fastestLap == null
                 ? "N/A"
@@ -91,7 +97,7 @@ public class F1Service
                 ? "N/A"
                 : fastestLap.FastestLap!.Time.Time,
 
-            Date = race.Date
+            HasRaceHappened = date <= DateTime.Today,
         };
     }
 }

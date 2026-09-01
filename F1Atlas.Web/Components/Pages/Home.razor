@@ -54,10 +54,7 @@
         showPopup = true;
         selectedStatistics =
         await CircuitService.GetCircuitStatistics(circuitId);
-        Console.WriteLine(selectedStatistics?.FastestLap);
-        Console.WriteLine(selectedStatistics?.FastestLapTime);
-
-
+        
         StateHasChanged();
     }
 
