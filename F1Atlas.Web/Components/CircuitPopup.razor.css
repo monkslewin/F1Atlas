@@ -1,70 +1,112 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@600;700&family=Titillium+Web:wght@400;600&display=swap');
+
 .circuit-popup {
     position: fixed;
-
     left: 30px;
     top: 50%;
-
     transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    width: 480px;
 
-    width: 450px;
-    min-height: 250px;
-
-    background: white;
-    padding: 30px;
-
+    background: linear-gradient(160deg, #1B2038 0%, #2A2450 100%);
+    color: #E8ECF7;
     border-radius: 12px;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+
+    box-shadow:
+        0 0 30px rgba(122, 162, 247, 0.15),
+        0 8px 30px rgba(0, 0, 0, 0.6);
+
+   
+    border: 1px solid rgba(140, 170, 255, 0.2);
+
+    backdrop-filter: blur(6px);
 
     z-index: 1000;
 }
 
-.header {
-    margin-bottom: 25px;
-}
 
-.circuit-name {
-    font-size: 24px;
-    margin: 0;
-}
 
-.stats {
+.popup-header {
     display: flex;
-    flex-direction: column;
-    gap: 12px;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 20px 24px;
+    border-bottom: 1px solid rgba(140, 170, 255, 0.15);
 }
 
-.stat-section {
-    padding: 15px;
-    border-radius: 8px;
-    background: #f5f5f5;
-}
-
-.stat-section h3 {
-    margin: 0 0 8px 0;
-    font-size: 16px;
-}
-
-.stat-driver {
+.popup-title {
+    font-size: 22px;
     margin: 0;
-    font-size: 18px;
-    font-weight: 600;
-}
-
-.stat-value {
-    margin: 3px 0 0 0;
-    font-size: 14px;
-    color: #666;
+    color: #F5F7FF;
+    letter-spacing: 0.01em;
 }
 
 .close-button {
-    position: absolute;
-
-    top: 10px;
-    right: 15px;
-
     border: none;
     background: none;
-
-    font-size: 28px;
+    font-size: 22px;
+    line-height: 1;
     cursor: pointer;
+    color: #9AA5C7;
+    transition: color 0.15s ease;
+}
+
+.close-button:hover {
+    color: #F5F7FF;
+}
+
+.popup-body {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.popup-body div {
+    padding: 12px;
+}
+
+.stat-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+
+    padding: 12px 0;
+}
+
+.stat-row:not(:last-child) {
+    border-bottom: 1px solid rgba(140, 170, 255, 0.1);
+}
+
+.stat-left {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.stat-label {
+    font-size: 17px;
+    font-family: 'Orbitron', sans-serif;
+    color: #7A85AD;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+}
+
+.stat-name {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 600;
+    color: #F5F7FF;
+}
+
+.stat-detail {
+    margin: 0;
+    font-size: 13px;
+    color: #9AA5C7;
+    font-family: 'Titillium Web', sans-serif;
+}
+
+.stat-right {
+    flex-shrink: 0;
 }

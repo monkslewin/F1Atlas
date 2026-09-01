@@ -3,36 +3,43 @@
 {
     <div class="circuit-popup">
 
-        <div class="header">
+        <div class="popup-header">
+            <h2 class="popup-title">@CircuitName</h2>
             <button class="close-button" @onclick="Close">×</button>
-
-            <h2 class="circuit-name">@CircuitName</h2>
         </div>
 
-        <div class="stats">
+        <div class="popup-body">
 
-            <div class="stat-section">
-                <h3>Race Winner</h3>
-                <p class="stat-driver">@CircuitStatistics?.Winner</p>
-                <p class="stat-value">4 wins</p>
+            <div class="stat-row race-winner">
+                <div class="stat-left">
+                    <span class="stat-label">Race Winner</span>
+                    <p class="stat-name">@CircuitStatistics?.Winner</p>
+                </div>
+                <div class="stat-right">
+                    <!-- reserved -->
+                </div>
             </div>
 
-            <div class="stat-section">
-                <h3>Most Podiums</h3>
-                <p class="stat-driver">Lewis Hamilton</p>
-                <p class="stat-value">10 podiums</p>
+            <div class="stat-row">
+                <div class="stat-left">
+                    <span class="stat-label">Fastest Lap</span>
+                    <p class="stat-name">Lewis Hamilton</p>
+                    <p class="stat-detail">10 podiums</p>
+                </div>
+                <div class="stat-right">
+                    <!-- reserved -->
+                </div>
             </div>
 
-            <div class="stat-section">
-                <h3>Most Pole Positions</h3>
-                <p class="stat-driver">Lewis Hamilton</p>
-                <p class="stat-value">8 poles</p>
-            </div>
-
-            <div class="stat-section">
-                <h3>Most Starts</h3>
-                <p class="stat-driver">Fernando Alonso</p>
-                <p class="stat-value">19 starts</p>
+            <div class="stat-row">
+                <div class="stat-left">
+                    <span class="stat-label">Pole Position</span>
+                    <p class="stat-name">Lewis Hamilton</p>
+                    <p class="stat-detail">8 poles</p>
+                </div>
+                <div class="stat-right">
+                    <!-- reserved -->
+                </div>
             </div>
 
         </div>
@@ -45,15 +52,13 @@
     public string? CircuitName { get; set; }
 
     [Parameter]
-    public CircuitStatistics? CircuitStatistics { get; set;}
+    public CircuitStatistics? CircuitStatistics { get; set; }
 
     [Parameter]
     public bool Visible { get; set; }
 
     [Parameter]
     public EventCallback OnClose { get; set; }
-
-
 
     private async Task Close()
     {
