@@ -220,7 +220,6 @@ function onMouseClick(event) {
             marker.userData.circuitId
         );
 
-    console.log(marker.userData.circuitName);
 
 }
 

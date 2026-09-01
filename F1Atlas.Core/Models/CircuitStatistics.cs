@@ -6,4 +6,8 @@ public class CircuitStatistics
     public string Winner { get; set; } = "";
     public string PolePosition { get; set; } = "";
     public string FastestLap { get; set; } = "";
+
+    public string FastestLapTime { get; set; } = "";
+
+    public string Date { get; set; } = "";
 }

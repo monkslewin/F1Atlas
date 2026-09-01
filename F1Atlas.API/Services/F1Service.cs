@@ -65,6 +65,8 @@ public class F1Service
 
         var race = races.First();
 
+        var date = race.Date;
+
         var winner = race.Results
             .FirstOrDefault(result => result.Position == "1");
 
@@ -83,7 +85,13 @@ public class F1Service
 
             FastestLap = fastestLap == null
                 ? "N/A"
-                : $"{fastestLap.Driver.GivenName} {fastestLap.Driver.FamilyName}"
+                : $"{fastestLap.Driver.GivenName} {fastestLap.Driver.FamilyName}",
+
+            FastestLapTime = fastestLap == null
+                ? "N/A"
+                : fastestLap.FastestLap!.Time.Time,
+
+            Date = race.Date
         };
     }
 }

@@ -1,5 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@600;700&family=Titillium+Web:wght@400;600&display=swap');
-
 .circuit-popup {
     position: fixed;
     left: 30px;
@@ -70,7 +68,7 @@
 .stat-row {
     display: flex;
     justify-content: space-between;
-    align-items: flex-start;
+    align-items: center;
 
     padding: 12px 0;
 }
@@ -108,5 +106,7 @@
 }
 
 .stat-right {
-    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
 }
