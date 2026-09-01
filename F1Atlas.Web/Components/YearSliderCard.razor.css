@@ -1,0 +1,104 @@
+.year-slider-card {
+    display: flex;
+    flex-direction: column;
+    width: 480px;
+
+    background: linear-gradient(160deg, #1B2038 0%, #2A2450 100%);
+    color: #E8ECF7;
+    border-radius: 12px;
+
+    box-shadow:
+        0 0 30px rgba(122, 162, 247, 0.15),
+        0 8px 30px rgba(0, 0, 0, 0.6);
+
+    border: 1px solid rgba(140, 170, 255, 0.2);
+    backdrop-filter: blur(6px);
+
+    padding: 20px 24px;
+}
+
+.slider-header {
+    margin-bottom: 8px;
+}
+
+.stat-label {
+    font-size: 17px;
+    font-family: 'Orbitron', sans-serif;
+    color: #7A85AD;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+}
+
+.slider-value {
+    font-size: 28px;
+    font-weight: 700;
+    color: #F5F7FF;
+    padding-bottom: 10px;
+    margin-bottom: 14px;
+}
+
+.year-slider-track-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    height: 24px;
+}
+
+.year-slider-input {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 4px;
+    border-radius: 2px;
+    background: linear-gradient(
+        to right,
+        #7AA2F7 0%,
+        #7AA2F7 var(--fill-percent, 50%),
+        rgba(140, 170, 255, 0.15) var(--fill-percent, 50%),
+        rgba(140, 170, 255, 0.15) 100%
+    );
+    outline: none;
+    margin: 0;
+    cursor: pointer;
+}
+
+.year-slider-input::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: #7AA2F7;
+    border: 3px solid #1B2038;
+    box-sizing: border-box;
+    box-shadow: 0 0 0 2px #7AA2F7, 0 2px 8px rgba(0, 0, 0, 0.5);
+    cursor: pointer;
+
+}
+
+.year-slider-input::-moz-range-thumb {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: #7AA2F7;
+    border: 3px solid #1B2038;
+    box-sizing: border-box;
+    box-shadow: 0 0 0 2px #7AA2F7, 0 2px 8px rgba(0, 0, 0, 0.5);
+    cursor: pointer;
+}
+
+.year-slider-input::-moz-range-track {
+    height: 4px;
+    border-radius: 2px;
+    background: transparent;
+}
+
+.year-slider-labels {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+    font-size: 13px;
+    font-family: 'Titillium Web', sans-serif;
+    color: #9AA5C7;
+    font-weight: 500;
+}

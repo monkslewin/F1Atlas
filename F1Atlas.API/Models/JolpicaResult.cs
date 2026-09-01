@@ -9,4 +9,6 @@ public class JolpicaResult
     public JolpicaTime? Time { get; set; }
 
     public JolpicaFastestLap? FastestLap { get; set; }
+
+    public string Grid { get; set; } = ""; 
 }

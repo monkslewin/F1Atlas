@@ -11,12 +11,21 @@
 
 <div class="globe-container" @ref="globeContainer"></div>
 
-<CircuitPopup
-    CircuitName="@selectedCircuit"
-    CircuitStatistics="@selectedStatistics"
-    Visible="@showPopup"
-    OnClose="@ClosePopup"
-/>
+<div class="side-panel">
+    <CircuitPopup
+        CircuitName="@selectedCircuit"
+        CircuitStatistics="@selectedStatistics"
+        Visible="@showPopup"
+        OnClose="@ClosePopup"
+    />
+
+    <YearSliderCard
+        Min="1980"
+        Max="2026"
+        Value="@selectedYear"
+        ValueChanged="@OnYearChanged"
+    />
+</div>
 
 @code {
     private ElementReference globeContainer;
@@ -26,6 +35,8 @@
     private string? selectedCircuit;
     private bool showPopup = false;
 
+    private int selectedYear = 2026;
+
     private DotNetObjectReference<Home>? dotNetReference;
 
     private CircuitStatistics? selectedStatistics;
@@ -34,7 +45,7 @@
     {
         if (firstRender)
         {
-            circuits = await CircuitService.GetCircuits();
+            circuits = await CircuitService.GetCircuits(selectedYear);
 
             dotNetReference = DotNetObjectReference.Create(this);
 
@@ -53,14 +64,20 @@
         selectedCircuit = circuitName;
         showPopup = true;
         selectedStatistics =
-        await CircuitService.GetCircuitStatistics(circuitId);
-        
+        await CircuitService.GetCircuitStatistics(circuitId, selectedYear
+        );
+
         StateHasChanged();
     }
 
     private void ClosePopup()
     {
         showPopup = false;
+    }
+
+    private void OnYearChanged(int newYear)
+    {
+        selectedYear = newYear;
     }
 
     public void Dispose()

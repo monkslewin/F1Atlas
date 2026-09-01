@@ -1,0 +1,37 @@
+<div class="year-slider-card">
+    <div class="slider-header">
+        <span class="stat-label">Year</span>
+    </div>
+    <div class="slider-value">@Value</div>
+    <div class="year-slider-track-wrapper">
+        <input type="range"
+               class="year-slider-input"
+               min="@Min"
+               max="@Max"
+               value="@Value"
+               @oninput="OnSliderInput"
+               style="--fill-percent: @(FillPercent)%" />
+    </div>
+    <div class="year-slider-labels">
+        <span>@Min</span>
+        <span>@Max</span>
+    </div>
+</div>
+
+@code {
+    [Parameter] public int Min { get; set; } = 1980;
+    [Parameter] public int Max { get; set; } = 2026;
+    [Parameter] public int Value { get; set; } = 2026;
+    [Parameter] public EventCallback<int> ValueChanged { get; set; }
+
+    private double FillPercent => Max == Min ? 0 : (double)(Value - Min) / (Max - Min) * 100;
+
+    private async Task OnSliderInput(ChangeEventArgs e)
+    {
+        if (int.TryParse(e.Value?.ToString(), out var newValue))
+        {
+            Value = newValue;
+            await ValueChanged.InvokeAsync(Value);
+        }
+    }
+}

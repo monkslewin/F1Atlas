@@ -13,18 +13,18 @@ public class CircuitsController : ControllerBase
     }
 
     // expose service so frontend can access circuit data
-    [HttpGet]
-    public async Task<IActionResult> GetCircuits()
+    [HttpGet("{year}")]
+    public async Task<IActionResult> GetCircuits(int year)
     {
-        var circuits = await _F1Service.GetCircuits();
+        var circuits = await _F1Service.GetCircuits(year);
 
         return Ok(circuits);
     }
 
-    [HttpGet("{circuitId}/statistics")]
-    public async Task<IActionResult> GetStatistics(string circuitId)
+    [HttpGet("{year}/{circuitId}/statistics")]
+    public async Task<IActionResult> GetStatistics(int year, string circuitId)
     {
-        var statistics = await _F1Service.GetCircuitStatistics(circuitId);
+        var statistics = await _F1Service.GetCircuitStatistics(circuitId, year);
 
         return Ok(statistics);
     }

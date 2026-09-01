@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("F1Atlas.API")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+20fe91e8e8e98944a714928d286b5b7ba357ad81")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+73014b8783bc025d0f7fbe210277bd8b67b45c04")]
 [assembly: System.Reflection.AssemblyProductAttribute("F1Atlas.API")]
 [assembly: System.Reflection.AssemblyTitleAttribute("F1Atlas.API")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -12,14 +12,14 @@ public class F1Service
         _httpClient = httpClient;
     }
 
-    public async Task<List<Circuit>> GetCircuits()
+    public async Task<List<Circuit>> GetCircuits(int year)
     {
         _httpClient.DefaultRequestHeaders.UserAgent.ParseAdd(
             "F1Atlas/1.0.0"
         );
 
         var response = await _httpClient.GetFromJsonAsync<JolpicaResponse>(
-            "https://api.jolpi.ca/ergast/f1/2026/circuits"
+            $"https://api.jolpi.ca/ergast/f1/{year}/circuits"
         ) ?? throw new Exception(
             "Error getting data from API. Please try again later."
         );
@@ -44,19 +44,19 @@ public class F1Service
         return circuits;
     }
 
-    public async Task<CircuitStatistics?> GetCircuitStatistics(string circuitId)
+    public async Task<CircuitStatistics?> GetCircuitStatistics(string circuitId, int year)
     {
         _httpClient.DefaultRequestHeaders.UserAgent.ParseAdd(
             "F1Atlas/1.0.0"
         );
 
         var response = await _httpClient.GetFromJsonAsync<JolpicaResponse>(
-            $"https://api.jolpi.ca/ergast/f1/2026/circuits/{circuitId}/results/"
+            $"https://api.jolpi.ca/ergast/f1/{year}/circuits/{circuitId}/results/"
         ) ?? throw new Exception(
             "Error getting data from API. Please try again later."
         );
 
-        var races = response.MRData.RaceTable.Races;
+        var races = response.MRData.RaceTable?.Races ?? new();
 
         if (races.Count == 0)
         {
@@ -78,6 +78,12 @@ public class F1Service
             .OrderBy(result => result.FastestLap!.Time.Time)
             .FirstOrDefault();
 
+        var poleSitter = race.Results
+            .FirstOrDefault(result => result.Grid == "1");
+        
+
+
+
         return new CircuitStatistics
         {
             CircuitName = race.Circuit.CircuitName,
@@ -98,6 +104,14 @@ public class F1Service
                 : fastestLap.FastestLap!.Time.Time,
 
             HasRaceHappened = date <= DateTime.Today,
+
+            PolePosition = poleSitter == null
+                ? "N/A"
+                : $"{poleSitter.Driver.GivenName} {poleSitter.Driver.FamilyName}",
+            
+            PolePositionResult = poleSitter == null
+                ? "N/A"
+                : poleSitter.Position,
         };
     }
 }
