@@ -7,6 +7,7 @@ let renderer;
 let globe;
 let controls;
 let markerGroup;
+let globeGroup;
 
 const raycaster = new THREE.Raycaster();
 const mouse = new THREE.Vector2();
@@ -24,9 +25,11 @@ export function initGlobe(container, circuits, dotNetRef) {
 
     scene = new THREE.Scene();
 
+    globeGroup = new THREE.Group();
     markerGroup = new THREE.Group();
 
-    scene.add(markerGroup);
+    globeGroup.add(markerGroup);
+    scene.add(globeGroup);
 
     // --------------------------------------------------
     // Camera
@@ -135,7 +138,7 @@ export function initGlobe(container, circuits, dotNetRef) {
         material
     );
 
-    scene.add(globe);
+    globeGroup.add(globe);
 
     // --------------------------------------------------
     // Markers
@@ -272,7 +275,110 @@ function animate() {
     );
 }
 
+function setGlobeScale(scale) {
+    globeGroup.scale.set(
+        scale,
+        scale,
+        scale
+    );
+}
+
+function startYearTransition() {
+
+    return new Promise(resolve => {
+
+        const startScale = globeGroup.scale.x;
+        const targetScale = 0.05;
+        const duration = 400;
+
+        const startTime = performance.now();
+
+        function animateScale(currentTime) {
+
+            const elapsed = currentTime - startTime;
+            const progress = Math.min(
+                elapsed / duration,
+                1
+            );
+
+            const scale =
+                startScale +
+                (targetScale - startScale) * progress;
+
+            globeGroup.scale.set(
+                scale,
+                scale,
+                scale
+            );
+
+            if (progress < 1) {
+
+                requestAnimationFrame(
+                    animateScale
+                );
+
+            } else {
+
+                resolve();
+            }
+        }
+
+        requestAnimationFrame(
+            animateScale
+        );
+    });
+};
+
+function finishYearTransition() {
+
+    return new Promise(resolve => {
+
+        const startScale = globeGroup.scale.x;
+        const targetScale = 1;
+        const duration = 400;
+
+        const startTime = performance.now();
+
+        function animateScale(currentTime) {
+
+            const elapsed = currentTime - startTime;
+            const progress = Math.min(
+                elapsed / duration,
+                1
+            );
+
+            const scale =
+                startScale +
+                (targetScale - startScale) * progress;
+
+            globeGroup.scale.set(
+                scale,
+                scale,
+                scale
+            );
+
+            if (progress < 1) {
+
+                requestAnimationFrame(
+                    animateScale
+                );
+
+            } else {
+
+                resolve();
+            }
+        }
+
+        requestAnimationFrame(
+            animateScale
+        );
+    });
+};
+
 window.globe = {
     initGlobe,
-    updateCircuits
+    updateCircuits,
+    setGlobeScale,
+    startYearTransition,
+    finishYearTransition
 };

@@ -78,13 +78,30 @@
     private async Task OnYearChanged(int newYear)
     {
         selectedYear = newYear;
-        circuits = await CircuitService.GetCircuits(selectedYear);
+
+        var transitionTask =
+            JS.InvokeVoidAsync(
+                "globe.startYearTransition"
+            ).AsTask();
+
+        var circuitsTask =
+            CircuitService.GetCircuits(selectedYear);
+
+        await Task.WhenAll(
+            transitionTask,
+            circuitsTask
+        );
+
+        circuits = await circuitsTask;
 
         await JS.InvokeVoidAsync(
-        "globe.updateCircuits",
-        circuits
-    );
+            "globe.updateCircuits",
+            circuits
+        );
 
+        await JS.InvokeVoidAsync(
+            "globe.finishYearTransition"
+        );
     }
 
     public void Dispose()
