@@ -4,7 +4,7 @@
     <div class="circuit-popup">
 
         <div class="popup-header">
-            <h2 class="popup-title">@CircuitName</h2>
+            <h2 class="popup-title">@PopupTitle</h2>
             <button class="close-button" @onclick="Close">×</button>
         </div>
 
@@ -63,6 +63,11 @@
 
     [Parameter]
     public EventCallback OnClose { get; set; }
+
+    private string? PopupTitle =>
+        CircuitStatistics is { Year: > 0, CircuitName.Length: > 0 }
+            ? $"{CircuitStatistics.CircuitName} ({CircuitStatistics.Year})"
+            : CircuitName;
 
     private async Task Close()
     {

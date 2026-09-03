@@ -10,6 +10,7 @@
                max="@Max"
                value="@Value"
                @onchange="OnSliderInput"
+               @oninput="OnSliderPreview"
                style="--fill-percent: @(FillPercent)%" />
     </div>
     <div class="year-slider-labels">
@@ -34,4 +35,12 @@
             await ValueChanged.InvokeAsync(Value);
         }
     }
+
+    private void OnSliderPreview(ChangeEventArgs e)
+{
+    if (int.TryParse(e.Value?.ToString(), out var newValue))
+    {
+        Value = newValue;
+    }
+}
 }

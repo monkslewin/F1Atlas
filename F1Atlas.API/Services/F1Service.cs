@@ -86,6 +86,7 @@ public class F1Service
 
         return new CircuitStatistics
         {
+            Year = year,
             CircuitName = race.Circuit.CircuitName,
 
             Winner = winner == null
