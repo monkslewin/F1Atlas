@@ -9,7 +9,14 @@ builder.Services.AddRazorComponents()
 
 builder.Services.AddHttpClient<CircuitService>(client =>
 {
-    client.BaseAddress = new Uri("http://localhost:5001");
+    var apiUrl = builder.Configuration["ApiUrl"];
+
+    if (string.IsNullOrWhiteSpace(apiUrl))
+    {
+        throw new InvalidOperationException("ApiUrl is not configured.");
+    }
+
+    client.BaseAddress = new Uri(apiUrl);
 });
 
 var app = builder.Build();
