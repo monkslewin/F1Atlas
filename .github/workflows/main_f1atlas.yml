@@ -1,4 +1,4 @@
-```yaml
+
 name: Build and deploy F1Atlas API to Azure
 
 on:
