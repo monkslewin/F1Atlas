@@ -64,4 +64,3 @@ jobs:
           app-name: 'F1Atlas'
           slot-name: 'Production'
           package: .
-
