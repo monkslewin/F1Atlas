@@ -3,7 +3,8 @@
   
     display: flex;
     flex-direction: column;
-    width: 480px;
+    width: clamp(210px, 24vw, 290px);
+    max-width: calc(100vw - 2rem);
 
     background: linear-gradient(160deg, #1B2038 0%, #2A2450 100%);
     color: #E8ECF7;
@@ -20,6 +21,54 @@
 
 }
 
+@media (max-width: 900px) {
+    .circuit-popup {
+        width: min(250px, calc(100vw - 2rem));
+    }
+
+    .popup-header {
+        padding: 10px 12px;
+    }
+
+    .popup-title {
+        font-size: 15px;
+    }
+
+    .stat-label {
+        font-size: 11px;
+    }
+
+    .stat-name {
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 480px) {
+    .popup-header {
+        padding: 14px 16px;
+    }
+
+    .popup-body div {
+        padding: 7px;
+    }
+
+    .stat-row {
+        padding: 7px 0;
+    }
+
+    .stat-label {
+        font-size: 10px;
+    }
+
+    .stat-name {
+        font-size: 13px;
+    }
+
+    .stat-detail {
+        font-size: 10px;
+    }
+}
+
 
 
 .popup-header {
@@ -27,12 +76,12 @@
     align-items: center;
     justify-content: space-between;
 
-    padding: 20px 24px;
+    padding: 12px 14px;
     border-bottom: 1px solid rgba(140, 170, 255, 0.15);
 }
 
 .popup-title {
-    font-size: 22px;
+    font-size: 16px;
     margin: 0;
     color: #F5F7FF;
     letter-spacing: 0.01em;
@@ -41,7 +90,7 @@
 .close-button {
     border: none;
     background: none;
-    font-size: 22px;
+    font-size: 16px;
     line-height: 1;
     cursor: pointer;
     color: #9AA5C7;
@@ -55,11 +104,11 @@
 .popup-body {
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 8px;
 }
 
 .popup-body div {
-    padding: 12px;
+    padding: 8px;
 }
 
 .stat-row {
@@ -67,7 +116,7 @@
     justify-content: space-between;
     align-items: center;
 
-    padding: 12px 0;
+    padding: 8px 0;
 }
 
 .stat-row:not(:last-child) {
@@ -77,11 +126,11 @@
 .stat-left {
     display: flex;
     flex-direction: column;
-    gap: 4px;
+    gap: 2px;
 }
 
 .stat-label {
-    font-size: 17px;
+    font-size: 11px;
     font-family: 'Orbitron', sans-serif;
     color: #7A85AD;
     text-transform: uppercase;
@@ -90,14 +139,14 @@
 
 .stat-name {
     margin: 0;
-    font-size: 20px;
+    font-size: 14px;
     font-weight: 600;
     color: #F5F7FF;
 }
 
 .stat-detail {
     margin: 0;
-    font-size: 13px;
+    font-size: 11px;
     color: #9AA5C7;
     font-family: 'Titillium Web', sans-serif;
 }
@@ -105,6 +154,6 @@
 .stat-right {
     display: flex;
     flex-direction: column;
-    gap: 4px;
+    gap: 2px;
     text-align: right;
 }
