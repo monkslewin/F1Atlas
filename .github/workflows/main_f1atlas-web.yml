@@ -52,9 +52,9 @@ jobs:
       - name: Login to Azure
         uses: azure/login@v2
         with:
-          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_60873BF556C44666AA6DBF349F5ADC52 }}
-          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_8BB65BAFDAB34E19ADACD8DC682219BE }}
-          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_6D0F7EA77CA04A12A65886D47D314127 }}
+          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_703EFF9283B448599572D98790AEA9A5 }}
+          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_0E9471EFA42042199D464CEE55705CFB }}
+          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_C772415E50264E18A1AEC7DF73492851 }}
 
       - name: Deploy F1Atlas Web to Azure
         uses: azure/webapps-deploy@v3
