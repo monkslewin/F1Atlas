@@ -11560,7 +11560,7 @@ function hl(e) {
 //#region src/globe.js
 var gl, _l, vl, yl, bl, xl, Sl, Cl = new wa(), wl = new K(), Tl = [], El;
 function Dl(e, t, n) {
-	El = n, gl = new An(), Sl = new Sn(), xl = new Sn(), Sl.add(xl), gl.add(Sl), _l = new aa(45, e.clientWidth / e.clientHeight, .1, 1e3), _l.position.z = 3, vl = new qc({ antialias: !0 }), vl.setSize(e.clientWidth, e.clientHeight), vl.setPixelRatio(window.devicePixelRatio), e.appendChild(vl.domElement), vl.domElement.addEventListener("click", Al), bl = new rl(_l, vl.domElement), bl.minDistance = 2.5, bl.maxDistance = 6;
+	El = n, gl = new An(), Sl = new Sn(), xl = new Sn(), Sl.add(xl), gl.add(Sl), _l = new aa(45, e.clientWidth / e.clientHeight, .1, 1e3), _l.position.z = 3, vl = new qc({ antialias: !0 }), vl.setSize(e.clientWidth, e.clientHeight), vl.setPixelRatio(window.devicePixelRatio), e.appendChild(vl.domElement), vl.domElement.addEventListener("click", Al), bl = new rl(_l, vl.domElement), bl.minDistance = 2.5, bl.maxDistance = 10;
 	let r = new wr(), i = 15e3, a = new Float32Array(i * 3);
 	for (let e = 0; e < i * 3; e++) a[e] = (Math.random() - .5) * 100;
 	r.setAttribute("position", new lr(a, 3));

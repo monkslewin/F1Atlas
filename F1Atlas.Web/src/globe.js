@@ -76,7 +76,7 @@ export function initGlobe(container, circuits, dotNetRef) {
     );
 
     controls.minDistance = 2.5;
-    controls.maxDistance = 6;
+    controls.maxDistance = 10;
 
     // --------------------------------------------------
     // Stars
