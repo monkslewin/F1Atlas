@@ -11558,9 +11558,12 @@ function hl(e) {
 }
 //#endregion
 //#region src/globe.js
-var gl, _l, vl, yl, bl, xl, Sl, Cl = new wa(), wl = new K(), Tl = [], El;
-function Dl(e, t, n) {
-	El = n, gl = new An(), Sl = new Sn(), xl = new Sn(), Sl.add(xl), gl.add(Sl), _l = new aa(45, e.clientWidth / e.clientHeight, .1, 1e3), _l.position.z = 3, vl = new qc({ antialias: !0 }), vl.setSize(e.clientWidth, e.clientHeight), vl.setPixelRatio(window.devicePixelRatio), e.appendChild(vl.domElement), vl.domElement.addEventListener("click", Al), bl = new rl(_l, vl.domElement), bl.minDistance = 2.5, bl.maxDistance = 10;
+var gl, _l, vl, yl, bl, xl, Sl, Cl, wl = new wa(), Tl = new K(), El = [], Dl;
+function Ol(e, t, n) {
+	Dl = n, gl = new An(), Sl = new Sn(), xl = new Sn(), Sl.add(xl), gl.add(Sl), _l = new aa(45, e.clientWidth / e.clientHeight, .1, 1e3), _l.position.z = 3, vl = new qc({ antialias: !0 }), vl.setSize(e.clientWidth, e.clientHeight), vl.setPixelRatio(window.devicePixelRatio), e.appendChild(vl.domElement), vl.domElement.addEventListener("click", jl), Cl = new ResizeObserver(() => {
+		let t = e.clientWidth, n = e.clientHeight;
+		_l.aspect = t / n, _l.updateProjectionMatrix(), vl.setSize(t, n);
+	}), Cl.observe(e), bl = new rl(_l, vl.domElement), bl.minDistance = 2.5, bl.maxDistance = 10;
 	let r = new wr(), i = 15e3, a = new Float32Array(i * 3);
 	for (let e = 0; e < i * 3; e++) a[e] = (Math.random() - .5) * 100;
 	r.setAttribute("position", new lr(a, 3));
@@ -11568,39 +11571,39 @@ function Dl(e, t, n) {
 		color: 16777215,
 		size: .05
 	}));
-	gl.add(o), yl = new qr(new vi(1, 64, 64), new Fr({ map: new Zi().load("/textures/earth.jpg") })), Sl.add(yl), Ol(t), Ml();
+	gl.add(o), yl = new qr(new vi(1, 64, 64), new Fr({ map: new Zi().load("/textures/earth.jpg") })), Sl.add(yl), kl(t), Nl();
 }
-function Ol(e) {
+function kl(e) {
 	for (let t of e) {
-		let e = kl(t.latitude, t.longitude), n = new qr(new vi(.015, 16, 16), new Fr({ color: 16711680 }));
+		let e = Al(t.latitude, t.longitude), n = new qr(new vi(.015, 16, 16), new Fr({ color: 16711680 }));
 		n.userData = {
 			circuitName: t.name,
 			circuitId: t.id
-		}, n.position.copy(e), Tl.push(n), xl.add(n);
+		}, n.position.copy(e), El.push(n), xl.add(n);
 	}
 }
-function kl(e, t) {
+function Al(e, t) {
 	let n = e * Math.PI / 180, r = t * Math.PI / 180;
 	return new q(1 * Math.cos(n) * Math.cos(r), 1 * Math.sin(n), -1 * Math.cos(n) * Math.sin(r));
 }
-function Al(e) {
+function jl(e) {
 	let t = vl.domElement.getBoundingClientRect();
-	wl.x = (e.clientX - t.left) / t.width * 2 - 1, wl.y = -((e.clientY - t.top) / t.height) * 2 + 1, Cl.setFromCamera(wl, _l);
-	let n = Cl.intersectObjects(Tl);
+	Tl.x = (e.clientX - t.left) / t.width * 2 - 1, Tl.y = -((e.clientY - t.top) / t.height) * 2 + 1, wl.setFromCamera(Tl, _l);
+	let n = wl.intersectObjects(El);
 	if (n.length === 0) return;
 	let r = n[0].object;
-	El.invokeMethodAsync("CircuitClicked", r.userData.circuitName, r.userData.circuitId);
+	Dl.invokeMethodAsync("CircuitClicked", r.userData.circuitName, r.userData.circuitId);
 }
-function jl(e) {
-	xl.clear(), Tl.length = 0, Ol(e);
+function Ml(e) {
+	xl.clear(), El.length = 0, kl(e);
 }
-function Ml() {
-	requestAnimationFrame(Ml), vl.render(gl, _l);
+function Nl() {
+	requestAnimationFrame(Nl), vl.render(gl, _l);
 }
-function Nl(e) {
+function Pl(e) {
 	Sl.scale.set(e, e, e);
 }
-function Pl() {
+function Fl() {
 	return new Promise((e) => {
 		let t = Sl.scale.x, n = performance.now();
 		function r(i) {
@@ -11610,7 +11613,7 @@ function Pl() {
 		requestAnimationFrame(r);
 	});
 }
-function Fl() {
+function Il() {
 	return new Promise((e) => {
 		let t = Sl.scale.x, n = performance.now();
 		function r(i) {
@@ -11621,11 +11624,11 @@ function Fl() {
 	});
 }
 window.globe = {
-	initGlobe: Dl,
-	updateCircuits: jl,
-	setGlobeScale: Nl,
-	startYearTransition: Pl,
-	finishYearTransition: Fl
+	initGlobe: Ol,
+	updateCircuits: Ml,
+	setGlobeScale: Pl,
+	startYearTransition: Fl,
+	finishYearTransition: Il
 };
 //#endregion
-export { Dl as initGlobe, jl as updateCircuits };
+export { Ol as initGlobe, Ml as updateCircuits };

@@ -8,6 +8,7 @@ let globe;
 let controls;
 let markerGroup;
 let globeGroup;
+let resizeObserver;
 
 const raycaster = new THREE.Raycaster();
 const mouse = new THREE.Vector2();
@@ -65,6 +66,26 @@ export function initGlobe(container, circuits, dotNetRef) {
         "click",
         onMouseClick
     );
+
+    // --------------------------------------------------
+    // Resize Observer
+    // --------------------------------------------------
+
+    resizeObserver = new ResizeObserver(() => {
+
+        const width = container.clientWidth;
+        const height = container.clientHeight;
+
+        camera.aspect = width / height;
+        camera.updateProjectionMatrix();
+
+        renderer.setSize(
+            width,
+            height
+        );
+    });
+
+    resizeObserver.observe(container);
 
     // --------------------------------------------------
     // Controls
@@ -243,7 +264,8 @@ function onMouseClick(event) {
         camera
     );
 
-    const intersects = raycaster.intersectObjects(markers);
+    const intersects =
+        raycaster.intersectObjects(markers);
 
     if (intersects.length === 0) {
         return;
@@ -279,6 +301,7 @@ function animate() {
 }
 
 function setGlobeScale(scale) {
+
     globeGroup.scale.set(
         scale,
         scale,
@@ -299,6 +322,7 @@ function startYearTransition() {
         function animateScale(currentTime) {
 
             const elapsed = currentTime - startTime;
+
             const progress = Math.min(
                 elapsed / duration,
                 1
@@ -330,7 +354,7 @@ function startYearTransition() {
             animateScale
         );
     });
-};
+}
 
 function finishYearTransition() {
 
@@ -345,6 +369,7 @@ function finishYearTransition() {
         function animateScale(currentTime) {
 
             const elapsed = currentTime - startTime;
+
             const progress = Math.min(
                 elapsed / duration,
                 1
@@ -376,7 +401,7 @@ function finishYearTransition() {
             animateScale
         );
     });
-};
+}
 
 window.globe = {
     initGlobe,
