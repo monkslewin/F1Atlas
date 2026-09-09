@@ -11558,9 +11558,9 @@ function hl(e) {
 }
 //#endregion
 //#region src/globe.js
-var gl, _l, vl, yl, bl, xl, Sl = new wa(), Cl = new K(), wl = [], Tl;
-function El(e, t, n) {
-	Tl = n, gl = new An(), xl = new Sn(), bl = new Sn(), xl.add(bl), gl.add(xl), _l = new aa(45, e.clientWidth / e.clientHeight, .1, 1e3), _l.position.z = 3, vl = new qc({ antialias: !0 }), vl.setSize(e.clientWidth, e.clientHeight), vl.setPixelRatio(window.devicePixelRatio), e.appendChild(vl.domElement), vl.domElement.addEventListener("click", kl), new rl(_l, vl.domElement);
+var gl, _l, vl, yl, bl, xl, Sl, Cl = new wa(), wl = new K(), Tl = [], El;
+function Dl(e, t, n) {
+	El = n, gl = new An(), Sl = new Sn(), xl = new Sn(), Sl.add(xl), gl.add(Sl), _l = new aa(45, e.clientWidth / e.clientHeight, .1, 1e3), _l.position.z = 3, vl = new qc({ antialias: !0 }), vl.setSize(e.clientWidth, e.clientHeight), vl.setPixelRatio(window.devicePixelRatio), e.appendChild(vl.domElement), vl.domElement.addEventListener("click", Al), bl = new rl(_l, vl.domElement), bl.minDistance = 2.5, bl.maxDistance = 6;
 	let r = new wr(), i = 15e3, a = new Float32Array(i * 3);
 	for (let e = 0; e < i * 3; e++) a[e] = (Math.random() - .5) * 100;
 	r.setAttribute("position", new lr(a, 3));
@@ -11568,64 +11568,64 @@ function El(e, t, n) {
 		color: 16777215,
 		size: .05
 	}));
-	gl.add(o), yl = new qr(new vi(1, 64, 64), new Fr({ map: new Zi().load("/textures/earth.jpg") })), xl.add(yl), Dl(t), jl();
+	gl.add(o), yl = new qr(new vi(1, 64, 64), new Fr({ map: new Zi().load("/textures/earth.jpg") })), Sl.add(yl), Ol(t), Ml();
 }
-function Dl(e) {
+function Ol(e) {
 	for (let t of e) {
-		let e = Ol(t.latitude, t.longitude), n = new qr(new vi(.015, 16, 16), new Fr({ color: 16711680 }));
+		let e = kl(t.latitude, t.longitude), n = new qr(new vi(.015, 16, 16), new Fr({ color: 16711680 }));
 		n.userData = {
 			circuitName: t.name,
 			circuitId: t.id
-		}, n.position.copy(e), wl.push(n), bl.add(n);
+		}, n.position.copy(e), Tl.push(n), xl.add(n);
 	}
 }
-function Ol(e, t) {
+function kl(e, t) {
 	let n = e * Math.PI / 180, r = t * Math.PI / 180;
 	return new q(1 * Math.cos(n) * Math.cos(r), 1 * Math.sin(n), -1 * Math.cos(n) * Math.sin(r));
 }
-function kl(e) {
+function Al(e) {
 	let t = vl.domElement.getBoundingClientRect();
-	Cl.x = (e.clientX - t.left) / t.width * 2 - 1, Cl.y = -((e.clientY - t.top) / t.height) * 2 + 1, Sl.setFromCamera(Cl, _l);
-	let n = Sl.intersectObjects(wl);
+	wl.x = (e.clientX - t.left) / t.width * 2 - 1, wl.y = -((e.clientY - t.top) / t.height) * 2 + 1, Cl.setFromCamera(wl, _l);
+	let n = Cl.intersectObjects(Tl);
 	if (n.length === 0) return;
 	let r = n[0].object;
-	Tl.invokeMethodAsync("CircuitClicked", r.userData.circuitName, r.userData.circuitId);
+	El.invokeMethodAsync("CircuitClicked", r.userData.circuitName, r.userData.circuitId);
 }
-function Al(e) {
-	bl.clear(), wl.length = 0, Dl(e);
+function jl(e) {
+	xl.clear(), Tl.length = 0, Ol(e);
 }
-function jl() {
-	requestAnimationFrame(jl), vl.render(gl, _l);
+function Ml() {
+	requestAnimationFrame(Ml), vl.render(gl, _l);
 }
-function Ml(e) {
-	xl.scale.set(e, e, e);
+function Nl(e) {
+	Sl.scale.set(e, e, e);
 }
-function Nl() {
+function Pl() {
 	return new Promise((e) => {
-		let t = xl.scale.x, n = performance.now();
+		let t = Sl.scale.x, n = performance.now();
 		function r(i) {
 			let a = i - n, o = Math.min(a / 400, 1), s = t + (.05 - t) * o;
-			xl.scale.set(s, s, s), o < 1 ? requestAnimationFrame(r) : e();
+			Sl.scale.set(s, s, s), o < 1 ? requestAnimationFrame(r) : e();
 		}
 		requestAnimationFrame(r);
 	});
 }
-function Pl() {
+function Fl() {
 	return new Promise((e) => {
-		let t = xl.scale.x, n = performance.now();
+		let t = Sl.scale.x, n = performance.now();
 		function r(i) {
 			let a = i - n, o = Math.min(a / 400, 1), s = t + (1 - t) * o;
-			xl.scale.set(s, s, s), o < 1 ? requestAnimationFrame(r) : e();
+			Sl.scale.set(s, s, s), o < 1 ? requestAnimationFrame(r) : e();
 		}
 		requestAnimationFrame(r);
 	});
 }
 window.globe = {
-	initGlobe: El,
-	updateCircuits: Al,
-	setGlobeScale: Ml,
-	startYearTransition: Nl,
-	finishYearTransition: Pl
+	initGlobe: Dl,
+	updateCircuits: jl,
+	setGlobeScale: Nl,
+	startYearTransition: Pl,
+	finishYearTransition: Fl
 };
 //#endregion
-export { El as initGlobe, Al as updateCircuits };
+export { Dl as initGlobe, jl as updateCircuits };

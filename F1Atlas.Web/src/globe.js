@@ -75,6 +75,9 @@ export function initGlobe(container, circuits, dotNetRef) {
         renderer.domElement
     );
 
+    controls.minDistance = 2.5;
+    controls.maxDistance = 6;
+
     // --------------------------------------------------
     // Stars
     // --------------------------------------------------
