@@ -77,8 +77,10 @@
 
     private async Task OnYearChanged(int newYear)
     {
+        ClosePopup(); // clear current data being shown
         selectedYear = newYear;
 
+        // begin animation to hide API call
         var transitionTask =
             JS.InvokeVoidAsync(
                 "globe.startYearTransition"
