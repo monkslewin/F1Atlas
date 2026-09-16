@@ -188,3 +188,10 @@
     font-size: 11px;
     text-align: right;
 }
+
+.no-results {
+    margin: 0;
+    padding: 12px 8px;
+    color: #9AA5C7;
+    font-size: 13px;
+}

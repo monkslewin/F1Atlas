@@ -113,6 +113,16 @@ public class F1Service
             PolePositionResult = poleSitter == null
                 ? "N/A"
                 : poleSitter.Position,
+
+            Results = race.Results
+                .OrderBy(result => int.TryParse(result.Position, out var position) ? position : int.MaxValue)
+                .Select(result => new RaceResult
+                {
+                    Position = result.Position,
+                    DriverName = $"{result.Driver.GivenName} {result.Driver.FamilyName}",
+                    TimeOrGap = result.Time?.Time ?? "N/A"
+                })
+                .ToList(),
         };
     }
 }

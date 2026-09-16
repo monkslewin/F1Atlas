@@ -17,4 +17,6 @@ public class CircuitStatistics
     public string WinMargin { get; set; } = "";
 
     public bool HasRaceHappened { get; set; }
+
+    public List<RaceResult> Results { get; set; } = new();
 }

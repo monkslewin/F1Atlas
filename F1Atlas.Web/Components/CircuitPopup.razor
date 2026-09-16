@@ -53,37 +53,21 @@
             else
             {
                 <div class="results-list">
-
-                    <div class="result-row">
-                        <span class="result-position">1</span>
-                        <span class="result-driver">Max Verstappen</span>
-                        <span class="result-time">1:32:45.123</span>
-                    </div>
-
-                    <div class="result-row">
-                        <span class="result-position">2</span>
-                        <span class="result-driver">Lando Norris</span>
-                        <span class="result-time">+2.341s</span>
-                    </div>
-
-                    <div class="result-row">
-                        <span class="result-position">3</span>
-                        <span class="result-driver">Charles Leclerc</span>
-                        <span class="result-time">+5.672s</span>
-                    </div>
-
-                    <div class="result-row">
-                        <span class="result-position">4</span>
-                        <span class="result-driver">Oscar Piastri</span>
-                        <span class="result-time">+8.124s</span>
-                    </div>
-
-                    <div class="result-row">
-                        <span class="result-position">5</span>
-                        <span class="result-driver">George Russell</span>
-                        <span class="result-time">+12.456s</span>
-                    </div>
-
+                    @if (CircuitStatistics?.Results.Count > 0)
+                    {
+                        @foreach (var result in CircuitStatistics.Results)
+                        {
+                            <div class="result-row">
+                                <span class="result-position">@result.Position</span>
+                                <span class="result-driver">@result.DriverName</span>
+                                <span class="result-time">@result.TimeOrGap</span>
+                            </div>
+                        }
+                    }
+                    else
+                    {
+                        <p class="no-results">Race results are not available.</p>
+                    }
                 </div>
             }
 
