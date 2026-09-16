@@ -12,9 +12,16 @@
 <div class="globe-container" @ref="globeContainer"></div>
 
 <div class="side-panel">
+    <CircuitViewToggleCard
+        Visible="@showPopup"
+        ShowingResults="@showingResults"
+        ShowingResultsChanged="@OnShowingResultsChanged"
+    />
+
     <CircuitPopup
         CircuitName="@selectedCircuit"
         CircuitStatistics="@selectedStatistics"
+        ShowingResults="@showingResults"
         Visible="@showPopup"
         OnClose="@ClosePopup"
     />
@@ -34,6 +41,7 @@
 
     private string? selectedCircuit;
     private bool showPopup = false;
+    private bool showingResults;
 
     private int selectedYear = 2026;
 
@@ -73,6 +81,11 @@
     private void ClosePopup()
     {
         showPopup = false;
+    }
+
+    private void OnShowingResultsChanged(bool value)
+    {
+        showingResults = value;
     }
 
     private async Task OnYearChanged(int newYear)

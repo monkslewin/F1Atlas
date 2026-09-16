@@ -1,0 +1,25 @@
+@if (Visible)
+{
+    <div class="circuit-view-toggle-card" role="group" aria-label="Circuit data view">
+        <button class="view-button @(ShowingResults ? "" : "active")" @onclick="ShowStats">Stats</button>
+        <button class="view-button @(ShowingResults ? "active" : "")" @onclick="ShowResults">Results</button>
+    </div>
+}
+
+@code {
+    [Parameter] public bool Visible { get; set; }
+    [Parameter] public bool ShowingResults { get; set; }
+    [Parameter] public EventCallback<bool> ShowingResultsChanged { get; set; }
+
+    private async Task ShowStats()
+    {
+        ShowingResults = false;
+        await ShowingResultsChanged.InvokeAsync(ShowingResults);
+    }
+
+    private async Task ShowResults()
+    {
+        ShowingResults = true;
+        await ShowingResultsChanged.InvokeAsync(ShowingResults);
+    }
+}

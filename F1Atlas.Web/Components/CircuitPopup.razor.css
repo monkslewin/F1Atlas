@@ -1,6 +1,4 @@
 .circuit-popup {
-    
-  
     display: flex;
     flex-direction: column;
     width: clamp(210px, 24vw, 290px);
@@ -14,11 +12,9 @@
         0 0 30px rgba(122, 162, 247, 0.15),
         0 8px 30px rgba(0, 0, 0, 0.6);
 
-   
     border: 1px solid rgba(140, 170, 255, 0.2);
 
     backdrop-filter: blur(6px);
-
 }
 
 @media (max-width: 900px) {
@@ -48,10 +44,6 @@
         padding: 14px 16px;
     }
 
-    .popup-body div {
-        padding: 7px;
-    }
-
     .stat-row {
         padding: 7px 0;
     }
@@ -67,9 +59,13 @@
     .stat-detail {
         font-size: 10px;
     }
+
+    .result-row {
+        padding: 7px;
+    }
 }
 
-
+/* Header */
 
 .popup-header {
     display: flex;
@@ -101,22 +97,22 @@
     color: #F5F7FF;
 }
 
+/* Popup Body */
+
 .popup-body {
     display: flex;
     flex-direction: column;
     gap: 8px;
 }
 
-.popup-body div {
-    padding: 8px;
-}
+/* Stats */
 
 .stat-row {
     display: flex;
     justify-content: space-between;
     align-items: center;
 
-    padding: 8px 0;
+    padding: 8px;
 }
 
 .stat-row:not(:last-child) {
@@ -155,5 +151,40 @@
     display: flex;
     flex-direction: column;
     gap: 2px;
+    text-align: right;
+}
+
+/* Results */
+
+.results-list {
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.result-row {
+    display: flex;
+    align-items: center;
+
+    padding: 8px;
+
+    border-bottom: 1px solid rgba(140, 170, 255, 0.1);
+}
+
+.result-position {
+    width: 25px;
+    color: #7A85AD;
+    font-size: 12px;
+}
+
+.result-driver {
+    flex: 1;
+    color: #F5F7FF;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.result-time {
+    color: #9AA5C7;
+    font-size: 11px;
     text-align: right;
 }

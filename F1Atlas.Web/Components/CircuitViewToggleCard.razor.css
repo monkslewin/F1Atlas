@@ -1,0 +1,41 @@
+.circuit-view-toggle-card {
+    display: flex;
+    gap: 4px;
+    width: clamp(210px, 24vw, 290px);
+    max-width: calc(100vw - 2rem);
+    padding: 6px;
+    background: linear-gradient(160deg, #1B2038 0%, #2A2450 100%);
+    border: 1px solid rgba(140, 170, 255, 0.2);
+    border-radius: 8px;
+    box-shadow: 0 0 30px rgba(122, 162, 247, 0.15), 0 8px 30px rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(6px);
+}
+
+.view-button {
+    flex: 1;
+    border: none;
+    border-radius: 4px;
+    background: transparent;
+    color: #7A85AD;
+    cursor: pointer;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 10px;
+    padding: 7px;
+    text-transform: uppercase;
+    transition: color 0.15s ease, background 0.15s ease;
+}
+
+.view-button:hover {
+    color: #F5F7FF;
+}
+
+.view-button.active {
+    background: rgba(140, 170, 255, 0.15);
+    color: #F5F7FF;
+}
+
+@media (max-width: 900px) {
+    .circuit-view-toggle-card {
+        width: min(250px, calc(100vw - 2rem));
+    }
+}
